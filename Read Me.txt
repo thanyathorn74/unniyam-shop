@@ -1,0 +1,43 @@
+# UnNiYam Shop - Project Development Log
+
+## Initial Setup
+**Date:** 2025-11-25
+- **Objective:** Create an Online Shopping Platform based on provided ER Diagram.
+- **Tech Stack:** HTML, CSS, Vanilla JS (Frontend) + Node.js Express (Backend) + MySQL (Database).
+- **Structure:** External file structure (Separated HTML, CSS, JS, Server).
+
+## Phase 1: Core Structure & Database
+**Date:** 2025-11-25
+- Created `package.json` for dependencies.
+- Created `server.js`, `public/index.html`, `public/style.css`, `public/script.js`.
+- Connected Node.js to MySQL.
+- Created database tables using provided SQL.
+
+## Phase 2: Authentication Flow (Login/Register)
+**Date:** 2025-11-25
+- Implemented Register logic (file upload, duplicate checks, database insert).
+- Implemented Login logic (password check, cookies).
+
+## Phase 3: UI/UX Refinements
+**Date:** 2025-11-25
+- Added circular profile picture upload preview.
+- Added Duplicate Username/Email checks with inline error messages.
+- Added "Forgot Password" modal simulation.
+- Switched login failure alerts to popups.
+
+## Phase 4: Database Troubleshooting
+**Date:** 2025-11-26
+- Addressed case sensitivity issues (`Users` vs `users`).
+- Updated backend columns to match user's existing database schema (`display_name`, `password_hash`, etc.).
+
+## Phase 5: Requirement Adjustment
+**Date:** 2025-11-26
+- Adjusted project scope to include additional tables (`categories`, `vouchers`, `flash_sales`) found in user's database schema.
+- Updated `server.js` API routes to select specific columns (`stock_quantity`, `description`) present in the new schema.
+
+## Phase 6: User Profile & Navigation Updates
+**Date:** 2025-11-26 05:25:00
+- **Feature:** Replaced "Hi, Username" text with a clickable profile picture.
+- **Feature:** Implemented a dropdown menu for the profile picture with links: "Edit Profile", "Order History", "Settings", "Logout".
+- **Feature:** Added Logout functionality (clears cookies and local storage).
+- **Update:** Refactored `public/index.html`, `public/style.css`, and `public/script.js` to support the new dropdown UI and logic.

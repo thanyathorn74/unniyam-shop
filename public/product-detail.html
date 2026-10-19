@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - UnNiYam Shop</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                <div class="logo-icon"></div> UnNiYam Shop
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-item">Home</a>
+                
+                <div class="nav-item nav-noti-container" style="position: relative; cursor: pointer;">
+                    <i class="fas fa-bell" style="font-size:1.2rem; color:var(--dark-text);" onclick="app.toggleNotiDropdown()"></i>
+                    <span class="cart-badge" id="nav-noti-count" style="display:none; top:-5px; right:-5px;">0</span>
+                    <div id="noti-menu" class="dropdown-menu hidden" style="width: 300px; right: -50px;">
+                        <div id="noti-dropdown-content"></div>
+                    </div>
+                </div>
+
+                <a href="cart.html" class="nav-item" style="text-decoration: none;">
+                    Cart 🛒 <span class="cart-badge" id="cart-count">0</span>
+                </a>
+
+                <a href="index.html" class="nav-item" id="login-link">Login</a>
+
+                <div class="nav-item hidden" id="profile-link">
+                    <div class="profile-dropdown-container">
+                        <img id="nav-profile-pic" src="" alt="Profile" onclick="app.toggleDropdown()">
+                        <div id="profile-menu" class="dropdown-menu hidden">
+                            <a href="#" onclick="app.openEditProfile()">Edit Profile</a>
+                            <a href="order-history.html">Order History</a>
+                            <a href="#" onclick="app.logout()">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div style="margin-bottom: 20px;">
+            <a href="index.html" style="text-decoration: none; color: #666;">
+                <i class="fas fa-arrow-left"></i> Back to Shop
+            </a>
+        </div>
+
+        <div class="detail-container" id="detail-container">
+            <div class="detail-gallery">
+                <div class="main-image-box">
+                    <img id="main-img" src="" alt="Product Image">
+                </div>
+                <div class="thumbnail-list" id="thumbnail-container">
+                    </div>
+            </div>
+
+            <div class="detail-info">
+                <h1 id="detail-name">Loading...</h1>
+                <div class="detail-price-box">
+                    <span id="detail-price" class="current-price">฿0</span>
+                    <span id="detail-old-price" class="old-price"></span>
+                </div>
+                
+                <p class="product-description" id="detail-desc">
+                    Loading description...
+                </p>
+
+                <div class="stock-status">
+                    <i class="fas fa-check-circle" style="color: green;"></i> In Stock (<span id="detail-stock">0</span> items)
+                </div>
+                <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+
+                <div class="action-buttons">
+                    <button class="add-to-cart-btn-large" id="add-cart-btn">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer><p>&copy; 2025 UnNiYam Shop. All rights reserved.</p></footer>
+    <script src="script.js"></script>
+</body>
+</html>

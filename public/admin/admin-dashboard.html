@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; padding: 20px; background-color: #f4f6f8; }
+        .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        
+        .container { display: flex; gap: 20px; }
+        .main-content { flex: 3; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        
+        /* NOTIFICATION SIDEBAR */
+        .sidebar { flex: 1; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); height: fit-content; }
+        .noti-item { border-bottom: 1px solid #eee; padding: 10px 0; font-size: 0.9rem; }
+        .noti-actions { margin-top: 5px; text-align: right; }
+        .noti-badge { background: #d90429; color: white; padding: 2px 6px; border-radius: 10px; font-size: 0.7rem; display: none; }
+
+        /* TABLE & BADGES */
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { border-bottom: 1px solid #eee; padding: 12px; text-align: left; }
+        th { background-color: #f8f9fa; color: #555; }
+        .status-active { background: #d4edda; color: #155724; padding: 4px 8px; border-radius: 12px; font-size: 0.85rem; }
+        .status-suspended { background: #f8d7da; color: #721c24; padding: 4px 8px; border-radius: 12px; font-size: 0.85rem; }
+
+        /* BUTTONS */
+        button { cursor: pointer; padding: 6px 12px; border: none; border-radius: 4px; transition: 0.2s; }
+        .btn-edit { background: #4361ee; color: white; }
+        .btn-delete { background: #d90429; color: white; }
+        .btn-home { background: #333; color: white; }
+
+        /* MODAL */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; }
+        .modal-content { background: white; padding: 25px; border-radius: 8px; width: 400px; position: relative; }
+        .close { position: absolute; top: 15px; right: 20px; cursor: pointer; font-size: 1.2rem; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: 500; }
+        .form-group select, .form-group input { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; }
+    </style>
+</head>
+<body>
+
+    <div class="admin-header">
+        <h1>🔧 Admin Dashboard</h1>
+        <div>
+            <button class="btn-home" onclick="window.location.href='/index.html'">🏠 Shop</button>
+            <button class="btn-delete" onclick="adminLogout()">Logout</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="main-content">
+            <h2>User Management</h2>
+            <table id="userTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>User</th>
+                        <th>Role</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <div class="sidebar">
+            <h3>🔔 Alerts <span id="noti-count" class="noti-badge">0</span></h3>
+            <div id="noti-list">
+                <p style="color:#777; font-size:0.9rem;">Loading notifications...</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h3>Edit User</h3>
+            <form id="editUserForm">
+                <input type="hidden" id="editUserId">
+                <div class="form-group">
+                    <label>Username (Read Only)</label>
+                    <input type="text" id="editUsername" disabled style="background:#eee;">
+                </div>
+                <div class="form-group">
+                    <label>Role</label>
+                    <select id="editRole">
+                        <option value="customer">Customer</option>
+                        <option value="seller">Seller</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Status</label>
+                    <select id="editStatus">
+                        <option value="active">Active</option>
+                        <option value="suspended">Suspended</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-edit" style="width:100%">Save Changes</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="/admin/admin.js"></script>
+</body>
+</html>

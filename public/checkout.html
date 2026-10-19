@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - UnNiYam Shop</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                <div class="logo-icon"></div> UnNiYam Shop
+            </a>
+            <div class="nav-links">
+                <a href="cart.html" class="nav-item">Back to Cart</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="section-title">Checkout & Payment</div>
+        
+        <div class="checkout-container" id="checkout-page-content">
+            <div class="checkout-left">
+                <div class="checkout-section-box">
+                    <h3><i class="fas fa-map-marker-alt" style="color:var(--primary-color);"></i> Shipping Address</h3>
+                    <div id="address-list">
+                        </div>
+                    <button class="add-address-btn" onclick="app.openAddressModal()">+ Add New Address</button>
+                </div>
+
+                <div class="checkout-section-box">
+                    <h3><i class="fas fa-wallet" style="color:var(--primary-color);"></i> Payment Method</h3>
+                    <div class="payment-section">
+                        <label class="payment-option"><input type="radio" name="payment" value="QR PromptPay" checked onchange="app.togglePaymentDetails()"> <span><i class="fas fa-qrcode"></i> QR Code / PromptPay</span></label>
+                        <div id="payment-qr" class="payment-details-box">
+                            <p style="margin-bottom:5px;">Scan to Pay:</p>
+                            <img id="promptpay-qr" src="https://promptpay.io/0812345678/0" alt="QR Code" style="width: 150px; border: 1px solid #ddd; border-radius: 5px;">
+                        </div>
+                        
+                        <label class="payment-option"><input type="radio" name="payment" value="COD" onchange="app.togglePaymentDetails()"> <span><i class="fas fa-truck"></i> Cash on Delivery (COD)</span></label>
+                        <div id="payment-cod" class="payment-details-box hidden"><p>Pay cash upon delivery.</p></div>
+                        
+                        <label class="payment-option"><input type="radio" name="payment" value="CreditCard" onchange="app.togglePaymentDetails()"> <span><i class="fas fa-credit-card"></i> Credit / Debit Card</span></label>
+                        <div id="payment-card" class="payment-details-box hidden">
+                            <input type="text" placeholder="Card Number (16 digits)" class="card-input" style="width: 100%; margin-bottom: 10px;">
+                            <div style="display: flex; gap: 10px;"><input type="text" placeholder="MM/YY" class="card-input" style="width: 50%;"><input type="text" placeholder="CVV" class="card-input" style="width: 50%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="checkout-right">
+                <div class="cart-summary">
+                    <h3>Order Confirmation</h3>
+                    <div id="checkout-items-summary" style="margin-bottom: 15px; max-height: 200px; overflow-y: auto; font-size: 0.9rem;">
+                        </div>
+                    <hr>
+                    <div class="summary-row"><span>Subtotal</span><span id="checkout-subtotal">฿0</span></div>
+                    <div class="summary-row"><span>Discount</span><span id="checkout-discount" style="color: var(--error-color);">฿0</span></div>
+                    <div class="summary-row"><span>Shipping</span><span style="color: green;">Free</span></div>
+                    <hr>
+                    <div class="summary-row total"><span>Total to Pay</span><span id="checkout-total">฿0</span></div>
+                    
+                    <button class="checkout-btn" onclick="app.confirmOrder()">Confirm Order & Pay</button>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div id="address-modal" class="modal hidden">
+        <div class="modal-content" style="max-width: 600px;">
+            <span class="close-btn" onclick="app.toggleModal('address-modal')">&times;</span>
+            <h3>Add New Address</h3>
+            <p style="font-size:0.9rem; color:#666; margin-bottom:10px;">Click on the map to pin your location.</p>
+
+            <div id="map" style="height: 300px; width: 100%; border-radius: 8px; margin-bottom: 15px; border: 1px solid #ddd;"></div>
+
+            <form id="address-form" onsubmit="app.handleSaveAddress(event)">
+                <div class="form-group">
+                    <label>Shipping Address</label>
+                    <textarea id="new-addr-detail" rows="3" placeholder="Enter full address" required></textarea>
+                </div>
+                <!-- <div class="form-group">
+                    <label>Address Detail</label>
+                    <input type="text" id="new-addr-detail" placeholder="123 Street, Sub-district..." required>
+                </div> -->
+                <div style="display:flex; gap:10px;">
+                    <div class="form-group" style="flex:1">
+                        <label>City/Province</label>
+                        <input type="text" id="new-addr-city" placeholder="Bangkok" required>
+                    </div>
+                    <div class="form-group" style="flex:1">
+                        <label>Postal Code</label>
+                        <input type="text" id="new-addr-zip" placeholder="10140" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Phone Contact</label>
+                    <input type="text" id="new-addr-phone" placeholder="08X-XXX-XXXX" required>
+                </div>
+                <button type="submit" class="submit-btn">Save Address</button>
+            </form>
+        </div>
+    </div>
+
+    <footer><p>&copy; 2025 UnNiYam Shop. All rights reserved.</p></footer>
+    <script src="script.js"></script>
+</body>
+</html>

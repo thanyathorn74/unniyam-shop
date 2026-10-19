@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UnNiYam Shop</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+<header>
+    <nav>
+        <a href="index.html" class="logo" onclick="app.showPage('home')">
+            <img src="pic/logo/unniyamshop.png" alt="UnNiYam Logo" class="logo-img"> 
+            UnNiYam Shop
+        </a>
+        <div class="search-bar">
+            <input type="text" id="search-input" placeholder="Search products..." onkeypress="app.handleSearchEnter(event)">
+            <i id="clear-search" class="fas fa-times hidden" onclick="app.clearSearch()"></i>
+            <button onclick="app.handleSearch()">Search</button>
+        </div>
+        <div class="nav-links">
+            <a class="nav-item" onclick="app.showPage('home')">Home</a>
+            
+            <div class="nav-item nav-noti-container" style="position: relative; cursor: pointer;">
+                <i class="fas fa-bell" style="font-size:1.2rem; color:var(--dark-text);" onclick="app.toggleNotiDropdown()"></i>
+                <span class="cart-badge" id="nav-noti-count" style="display:none; top:-5px; right:-5px;">0</span>
+                
+                <div id="noti-menu" class="dropdown-menu hidden" style="width: 300px; right: -50px; max-height: 400px; overflow-y: auto;">
+                    <div id="noti-dropdown-content">
+                        </div>
+                </div>
+            </div>
+
+            <a href="cart.html" class="nav-item" style="text-decoration: none;">
+                Cart 🛒 <span class="cart-badge" id="cart-count">0</span>
+            </a>
+            <a class="nav-item" id="login-link" onclick="app.showPage('login')">Login</a>
+            <div class="nav-item hidden" id="profile-link">
+                <div class="profile-dropdown-container">
+                    <img id="nav-profile-pic" src="" alt="Profile" onclick="app.toggleDropdown()">
+                    <div id="profile-menu" class="dropdown-menu hidden">
+                        <a href="#" onclick="app.openEditProfile()">Edit Profile</a>
+                        <a href="order-history.html">Order History</a>
+                        <a href="#" onclick="app.logout()">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+    <main id="main-content">
+        <div id="home-page" class="active-page">
+            <div class="hero">
+                <div class="hero-text">
+                    <h1>Welcome to UnNiYam</h1>
+                    <p>Find what you love, love what you find.</p>
+                </div>
+            </div>
+
+            <div class="section-title">Exclusive Vouchers</div>
+            <div class="voucher-wrapper" id="voucher-container"></div>
+
+            <div class="categories-wrapper">
+                <div class="section-title" style="font-size: 1rem; color: #777;">Categories</div>
+                <div class="category-grid" id="cat-container"></div>
+            </div>
+
+            <div class="flash-sale-container">
+                <div class="flash-header">
+                    <div class="flash-title"><i class="fas fa-bolt" style="color: #ffcc00;"></i> Flash Sale</div>
+                    <div class="countdown-timer">Ending in: <span id="timer">02:15:40</span></div>
+                </div>
+                <div class="flash-sale-grid" id="flash-sale-list"></div>
+            </div>
+
+            <div class="section-title" id="main-product-title">All Products</div>
+            <div class="product-grid" id="product-container"></div>
+        </div>
+
+        <div id="login-page" class="auth-container hidden">
+            <h2>Login</h2>
+            <form id="login-form">
+                <div class="form-group"><label>Username</label><input type="text" name="username" required></div>
+                <div class="form-group"><label>Password</label><input type="password" name="password" required></div>
+                <div class="forgot-password"><a href="#" onclick="app.toggleModal('forgot-modal')">Forgot Password?</a></div>
+                <button type="submit" class="submit-btn">Sign In</button>
+                <p class="switch-auth" onclick="app.showPage('register')">Don't have an account? Register</p>
+            </form>
+        </div>
+        <div id="register-page" class="auth-container hidden">
+            <h2>Register</h2>
+            <form id="register-form" enctype="multipart/form-data">
+                <div class="profile-upload-container">
+                    <label for="profile_pic_input" class="profile-upload-label">
+                        <img id="profile-preview" src="" alt="Preview" style="display:none;">
+                        <span id="upload-placeholder-text">Upload<br>Photo</span>
+                        <div class="upload-icon"><i class="fas fa-camera"></i></div>
+                    </label>
+                    <input type="file" id="profile_pic_input" name="profile_pic" accept="image/*" onchange="app.previewImage(event)">
+                </div>
+                <div class="form-group"><label>First Name</label><input type="text" name="first_name" required></div>
+                <div class="form-group"><label>Last Name</label><input type="text" name="last_name" required></div>
+                <div class="form-group"><label>Email <span id="email-error" class="error-text"></span></label><input type="email" name="email" id="reg-email" required></div>
+                <div class="form-group"><label>Username <span id="username-error" class="error-text"></span></label><input type="text" name="username" id="reg-username" required></div>
+                <div class="form-group"><label>Password</label><input type="password" name="password" required></div>
+                <button type="submit" class="submit-btn">Create Account</button>
+                <p class="switch-auth" onclick="app.showPage('login')">Already have an account? Login</p>
+            </form>
+        </div>
+    </main>
+
+    <div id="forgot-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-btn" onclick="app.toggleModal('forgot-modal')">&times;</span>
+            <h3>Reset Password</h3>
+            <p>Enter your email to reset password.</p>
+            <form id="forgot-form">
+                <div class="form-group"><input type="email" placeholder="Email" required></div>
+                <button type="submit" class="submit-btn">Send Reset Link</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="edit-profile-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-btn" onclick="app.toggleModal('edit-profile-modal')">&times;</span>
+            <h3>Edit Profile</h3>
+            <form id="edit-profile-form" enctype="multipart/form-data">
+                
+                <div class="profile-upload-container">
+                    <label for="edit_profile_pic_input" class="profile-upload-label">
+                        <img id="edit-profile-preview" src="" alt="Preview" style="display:block;">
+                        <div class="upload-icon"><i class="fas fa-camera"></i></div>
+                    </label>
+                    <input type="file" id="edit_profile_pic_input" name="profile_pic" accept="image/*" onchange="app.previewEditImage(event)">
+                </div>
+
+                <div class="form-group">
+                    <label>First Name</label>
+                    <input type="text" name="first_name" id="edit-fname" required>
+                </div>
+                <div class="form-group">
+                    <label>Last Name</label>
+                    <input type="text" name="last_name" id="edit-lname" required>
+                </div>
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" name="display_name" id="edit-username" required>
+                </div>
+
+                <button type="submit" class="submit-btn">Save Changes</button>
+            </form>
+        </div>
+    </div>
+
+    <footer><p>&copy; 2025 UnNiYam Shop. All rights reserved.</p></footer>
+    <script src="script.js"></script>
+    <script>
+        function startTimer(duration, display) {
+            var timer = duration, hours, minutes, seconds;
+            setInterval(function () {
+                hours = parseInt(timer / 3600, 10); minutes = parseInt((timer % 3600) / 60, 10); seconds = parseInt(timer % 60, 10);
+                hours = hours < 10 ? "0" + hours : hours; minutes = minutes < 10 ? "0" + minutes : minutes; seconds = seconds < 10 ? "0" + seconds : seconds;
+                display.textContent = hours + ":" + minutes + ":" + seconds;
+                if (--timer < 0) { timer = duration; }
+            }, 1000);
+        }
+        window.onload = function () { app.init(); var display = document.querySelector('#timer'); if(display) startTimer(10800, display); };
+    </script>
+</body>
+</html>

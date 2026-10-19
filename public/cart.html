@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - UnNiYam Shop</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+<header>
+    <nav>
+        <a href="index.html" class="logo">
+            <div class="logo-icon"></div> UnNiYam Shop
+        </a>
+        <div class="nav-links">
+            <a href="index.html" class="nav-item">Home</a>
+            
+            <div class="nav-item nav-noti-container" style="position: relative; cursor: pointer;">
+                <i class="fas fa-bell" style="font-size:1.2rem; color:var(--dark-text);" onclick="app.toggleNotiDropdown()"></i>
+                <span class="cart-badge" id="nav-noti-count" style="display:none; top:-5px; right:-5px;">0</span>
+                <div id="noti-menu" class="dropdown-menu hidden" style="width: 300px; right: -50px;">
+                    <div id="noti-dropdown-content"></div>
+                </div>
+            </div>
+
+            <a href="cart.html" class="nav-item" style="text-decoration: none; color: var(--primary-color); font-weight: bold;">
+                Cart 🛒 <span class="cart-badge" id="cart-count">0</span>
+            </a>
+
+            <a class="nav-item" id="login-link" onclick="app.showPage('login')">Login</a>
+
+            <div class="nav-item hidden" id="profile-link">
+                <div class="profile-dropdown-container">
+                    <img id="nav-profile-pic" src="" alt="Profile" onclick="app.toggleDropdown()">
+                    <div id="profile-menu" class="dropdown-menu hidden">
+                        <a href="#" onclick="app.openEditProfile()">Edit Profile</a>
+                        <a href="order-history.html">Order History</a>
+                        <a href="#" onclick="app.logout()">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+    <main>
+        <div class="section-title">Shopping Cart</div>
+        <div class="cart-container">
+            <div class="cart-items" id="cart-items-container">
+                <p style="text-align:center; padding: 20px;">Loading cart...</p>
+            </div>
+
+            <div class="cart-summary">
+                <h3>Order Summary</h3>
+                <div class="summary-row"><span>Subtotal</span><span id="subtotal-price">฿0</span></div>
+                <div class="summary-row"><span>Discount <small id="applied-coupon-name" style="color:var(--primary-color)"></small></span><span id="discount-amount" style="color: var(--error-color);">-฿0</span></div>
+                <div class="summary-row"><span>Shipping</span><span style="color: green;">Free</span></div>
+                <hr>
+
+                <div style="margin-bottom: 10px;">
+                    <label style="font-size: 0.85rem; font-weight: bold; margin-bottom: 5px; display: block;">Select Collected Voucher:</label>
+                    <select id="saved-coupons" onchange="app.selectSavedCoupon()" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 5px; margin-bottom: 5px;">
+                        <option value="">-- Select a voucher --</option>
+                    </select>
+                </div>
+                
+                <div class="coupon-section">
+                    <input type="text" id="coupon-code" placeholder="Enter Code">
+                    <button onclick="app.applyCoupon()">Apply</button>
+                </div>
+                <p id="coupon-message" style="margin-bottom: 10px; min-height: 20px; font-size: 0.8rem;"></p>
+                <hr>
+
+                <div class="summary-row total"><span>Total</span><span id="total-price">฿0</span></div>
+                
+                <button class="checkout-btn" onclick="app.goToCheckout()">Proceed to Checkout</button>
+                <button class="continue-shopping" onclick="window.location.href='index.html'">Continue Shopping</button>
+            </div>
+        </div>
+    </main>
+    <footer><p>&copy; 2025 UnNiYam Shop. All rights reserved.</p></footer>
+    <script src="script.js"></script>
+</body>
+</html>

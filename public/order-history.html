@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order History - UnNiYam Shop</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .order-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--primary-color);
+        }
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        .order-body h4 { margin-bottom: 5px; color: var(--dark-text); }
+        .order-status {
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .status-pending { background: #fff3cd; color: #856404; }
+        .status-paid { background: #d4edda; color: #155724; }
+        .status-shipped { background: #cce5ff; color: #004085; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                <div class="logo-icon"></div> UnNiYam Shop
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-item">Home</a>
+                <a href="cart.html" class="nav-item">Cart</a>
+                <a href="#" onclick="app.logout()" class="nav-item" style="color: var(--error-color);">Logout</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="section-title">My Orders</div>
+        <div id="order-history-container" style="max-width: 800px; margin: 0 auto;">
+            <p style="text-align:center;">Loading orders...</p>
+        </div>
+    </main>
+
+    <footer><p>&copy; 2025 UnNiYam Shop. All rights reserved.</p></footer>
+    <script src="script.js"></script>
+</body>
+</html>
